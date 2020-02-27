@@ -1,5 +1,5 @@
 {
-  "name": "dictionary",
+  "name": "broken-dictionary",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
     "dotenv": "^8.2.0",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
-    "http-errors": "~1.6.3",
+    "http-errors": "^1.6.3",
     "mongoose": "^5.9.2",
     "morgan": "~1.9.1"
   }

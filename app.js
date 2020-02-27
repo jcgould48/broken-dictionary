@@ -2,30 +2,36 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const mongoose =require('mongoose')
 const logger = require('morgan');
 
-const Word = require('./routes/dictionary/models/Words');
+//Moved below to wordRoutes
+// const Word = require('./routes/dictionary/models/Words');
 require('dotenv').config();
 
 const app = express();
 
 const indexRouter = require('./routes/index');
+//Add below path
+const wordRouter = require('./routes/dictionary/wordRoutes');
 
-mongoose
-  .connect(port, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+})
   .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(`MongoDB Error: ${err}`));
+  .catch((err) => console.log(`Mongo Error: ${err}`));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-
+//add this middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+//
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
